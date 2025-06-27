@@ -3,7 +3,6 @@ FROM python:3.11-slim AS build
 WORKDIR /app
 COPY . .
 
-RUN comando_inexistente_erro_proposital
 RUN mkdir /build && \
     cp -r app /build && \
     cp -r tests /build && \
