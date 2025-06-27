@@ -2,19 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Build Image de Build') {
+        stage('Build Imagem de Build') {
             steps {
-                echo 'Construindo a imagem para build...'
+                echo 'Construindo imagem do estágio de build...'
                 sh 'docker build --target build -t minha-imagem-build .'
+            }
+        }
+
+        stage('Build Imagem de Teste') {
+            steps {
+                echo 'Construindo imagem do estágio de testes...'
+                sh 'docker build --target test -t minha-imagem-test .'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Executando os testes dentro do container build...'
+                echo 'Executando os testes no container de testes...'
                 sh '''
-                    docker run --rm minha-imagem-build sh -c "
-                        echo '--- DENTRO DO CONTAINER ---';
+                    docker run --rm minha-imagem-test sh -c "
+                        echo '--- DENTRO DO CONTAINER DE TESTE ---';
                         echo 'Hostname:'; hostname;
                         echo 'Usuário:'; whoami;
                         echo 'Diretório atual:'; pwd;
