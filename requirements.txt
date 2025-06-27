@@ -1,2 +1,2 @@
 # requirements.txt
-# No momento, nenhum pacote extra é necessário, mas pode adicionar se quiser:
+# No momento, nenhum pacote extra é necessário
