@@ -12,4 +12,6 @@ FROM python:3.11-slim AS test
 WORKDIR /test
 COPY --from=build /build /test
 RUN pip install -r requirements.txt
+RUN cenario_2
+
 CMD ["python", "-m", "unittest", "discover", "-s", "tests"]
