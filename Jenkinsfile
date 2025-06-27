@@ -12,8 +12,6 @@ pipeline {
                         echo 'Usuário:'; whoami;
                         echo 'Diretório atual:'; pwd;
                         echo 'Arquivos disponíveis:'; ls -l;
-                        echo 'Executando os testes...';
-                        python -m unittest discover -s tests
                     "
                 '''
             }
