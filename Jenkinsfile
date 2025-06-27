@@ -5,12 +5,7 @@ pipeline {
         stage('Build Imagem de Build') {
             steps {
                 echo 'Construindo imagem do estágio de build...'
-                sh '''
-                    docker build --target build -t minha-imagem-build "
-                        echo 'Hostname:'; hostname;
-                        echo 'Usuário:'; whoami;
-                    "
-                '''
+                sh 'docker build --target build -t minha-imagem-build .'
             }
         }
 
