@@ -12,7 +12,17 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Executando os testes dentro do container build...'
-                sh 'docker run --rm minha-imagem-build python -m unittest discover -s tests'
+                sh '''
+                    docker run --rm minha-imagem-build sh -c "
+                        echo '--- DENTRO DO CONTAINER ---';
+                        echo 'Hostname:'; hostname;
+                        echo 'Usuário:'; whoami;
+                        echo 'Diretório atual:'; pwd;
+                        echo 'Arquivos disponíveis:'; ls -l;
+                        echo 'Executando os testes...';
+                        python -m unittest discover -s tests
+                    "
+                '''
             }
         }
     }
