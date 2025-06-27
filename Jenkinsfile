@@ -7,11 +7,8 @@ pipeline {
                 echo 'Construindo imagem do estágio de build...'
                 sh '''
                     docker build --target build -t minha-imagem-build "
-                        echo '--- DENTRO DO CONTAINER DE BUILD ---';
                         echo 'Hostname:'; hostname;
                         echo 'Usuário:'; whoami;
-                        echo 'Diretório atual:'; pwd;
-                        echo 'Arquivos disponíveis:'; ls -l;
                     "
                 '''
             }
