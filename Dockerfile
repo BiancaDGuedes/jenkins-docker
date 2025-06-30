@@ -3,16 +3,14 @@ FROM python:3.11-slim AS build
 
 WORKDIR /app
 
+RUN testeCenario2
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY app/ app/
 COPY tests/ tests/
 
-
 RUN python -m py_compile app/*.py
-
-
 RUN mkdir /build && cp -r app tests requirements.txt /build
 
 # Stage 2: Test
