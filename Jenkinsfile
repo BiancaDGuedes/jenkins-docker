@@ -6,6 +6,16 @@ pipeline {
             steps {
                 echo 'Construindo imagem do estágio de build...'
                 sh 'docker build --target build -t minha-imagem-build .'
+
+                echo 'Executando container de build'
+                sh '''
+                    docker run --rm minha-imagem-build sh -c "
+                        echo '--- DENTRO DO CONTAINER DE BUILD ---';
+                        echo 'Preparando os arquivos...';
+                        ls -l;
+                        echo 'Build completo (simulado)';
+                    "
+                '''
             }
         }
 
@@ -22,11 +32,6 @@ pipeline {
                 sh '''
                     docker run --rm minha-imagem-test sh -c "
                         echo '--- DENTRO DO CONTAINER DE TESTE ---';
-                        echo 'Hostname:'; hostname;
-                        echo 'Usuário:'; whoami;
-                        echo 'Diretório atual:'; pwd;
-                        echo 'Arquivos disponíveis:'; ls -l;
-                        echo 'Executando os testes...';
                         python -m unittest discover -s tests
                     "
                 '''
