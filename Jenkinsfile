@@ -13,13 +13,13 @@ pipeline {
                         echo '--- DENTRO DO CONTAINER DE BUILD ---';
                         echo 'Preparando os arquivos...';
                         ls -l;
-                        echo 'Build completo (simulado)';
+                        echo 'Build completo';
                     "
                 '''
             }
         }
 
-        stage('Build Imagem de Teste') {
+        stage('Imagem de Teste') {
             steps {
                 echo 'Construindo imagem do estágio de testes...'
                 sh 'docker build --target test -t minha-imagem-test .'
