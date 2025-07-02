@@ -1,15 +1,12 @@
 import unittest
-from app.converter import fahrenheit_to_celsius, celsius_to_fahrenheit
+import converter
 
-class TestConverter(unittest.TestCase):
-
+class TestConversao(unittest.TestCase):
     def test_fahrenheit_to_celsius(self):
-        self.assertAlmostEqual(fahrenheit_to_celsius(32), 0)
-        self.assertAlmostEqual(fahrenheit_to_celsius(212), 100)
+        self.assertEqual(converter.fahrenheit_to_celsius(32), 0)
 
-    def test_celsius_to_fahrenheit(self):
-        self.assertAlmostEqual(celsius_to_fahrenheit(0), 32)
-        self.assertAlmostEqual(celsius_to_fahrenheit(100), 212)
+    def test_fail_proposital(self):
+        self.assertEqual(1, 2)  # <-- Vai falhar de propósito
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

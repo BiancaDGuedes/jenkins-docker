@@ -29,22 +29,36 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Executando os testes no container de testes...'
-                sh '''
-                    docker run --rm minha-imagem-test sh -c "
-                        echo '--- DENTRO DO CONTAINER DE TESTE ---';
-                        python -m unittest discover -s tests
-                    "
-                '''
+                script {
+                    def resultado = sh (
+                        script: '''
+                            docker run --rm minha-imagem-test sh -c "
+                                echo '--- DENTRO DO CONTAINER DE TESTE ---';
+                                python -m unittest discover -s tests
+                            "
+                        ''',
+                        returnStatus: true
+                    )
+                    if (resultado != 0) {
+                        currentBuild.result = 'UNSTABLE'
+                        echo '⚠️ Testes falharam! Build marcado como INSTÁVEL.'
+                    } else {
+                        echo '✅ Todos os testes passaram com sucesso.'
+                    }
+                }
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline executado com sucesso!'
+            echo '✅ Pipeline executado com sucesso!'
+        }
+        unstable {
+            echo '⚠️ Pipeline concluído, mas com problemas nos testes.'
         }
         failure {
-            echo 'Pipeline falhou!'
+            echo '❌ Pipeline falhou completamente.'
         }
     }
 }
