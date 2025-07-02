@@ -3,7 +3,6 @@ FROM python:3.11-slim AS build
 
 WORKDIR /app
 
-RUN testeCenario2
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
